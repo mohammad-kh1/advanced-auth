@@ -3,6 +3,7 @@ import dotenv from "dotenv/config";
 import express, { Request, Response } from "express";
 import cors from "cors";
 import { config } from "./config/app.config";
+import connectDatabase from "./database/database";
 
 const app = express();
 const BASE_PATH = config.BASE_PATH;
@@ -21,6 +22,7 @@ app.get("/" , (req:Request , res:Response)=>{
     });
 });
 
-app.listen(config.PORT , ()=>{
+app.listen(config.PORT , async()=>{
     console.log(`server listening on http://localhost:${config.PORT} in ${config.NODE_ENV}`);
+    await connectDatabase();
 });
